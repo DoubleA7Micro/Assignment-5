@@ -93,11 +93,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
       var id = $stateParams.listingId;
 
       /* Create the listing object */
-      var listing = {
-        name: $scope.name, 
-        code: $scope.code, 
-        address: $scope.address
-      };
+      var listing = $scope.listing;
 
       /* Save the article using the Listings factory */
       Listings.update(id, listing)
