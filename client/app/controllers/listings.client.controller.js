@@ -7,7 +7,20 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
       /* Get all the listings, then bind it to the scope */
       Listings.getAll().then(function(response) {
         $scope.loading = false; //remove loader
-        $scope.listings = response.data;
+        $scope.Listings = [];
+        for(var i = 0; i < response.data.length; i++) {
+
+
+
+               $scope.Listings.push({
+                   _id: response.data[i]._id,
+                   id:i,
+                   name: response.data[i].name,
+                   code: response.data[i].code,
+                   latitude: response.data[i].coordinates.latitude,
+                   longitude: response.data[i].coordinates.longitude
+               });
+           }
       }, function(error) {
         $scope.loading = false;
         $scope.error = 'Unable to retrieve listings!\n' + error;
@@ -37,6 +50,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
               .then(function(response) {
                 $scope.listing = response.data;
                 $scope.loading = false;
+                console.log(response.data);
               }, function(error) {  
                 $scope.error = 'Unable to retrieve listing with id "' + id + '"\n' + error;
                 $scope.loading = false;
